@@ -21,7 +21,7 @@ Building a complex API from scratch for a costume shop that includes the followi
 •   Color: (String) A color to be associated with the tag. Must be a valid hex color code (e.g. #123456). Optional
 
 
-RESTful routes will include:
+## RESTful routes will include:
 •   Create, Read, Update, and Delete costumes
 
 •   Create, Read, Update, and Delete tags through costumes
