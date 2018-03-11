@@ -1,0 +1,34 @@
+{
+  "name": "complex-API-costume-shop",
+  "version": "1.0.0",
+  "description": "Building a complex API from scratch for a costume shop that includes the following:",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chausicle/complex-API-costume-shop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chausicle/complex-API-costume-shop/issues"
+  },
+  "homepage": "https://github.com/chausicle/complex-API-costume-shop#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^5.0.4",
+    "nodemon": "^1.17.1"
+  }
+}
