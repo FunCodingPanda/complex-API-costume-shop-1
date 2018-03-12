@@ -47,7 +47,24 @@ getById = (req, res, next) => {
 }
 
 update = (req, res, next) => {
+  const id = req.params.id
+  const updatedCostume = model.update(id, req.body)
 
+  if (updatedCostume.errors) {
+    return next({
+      status: updatedCostume.status,
+      message: updatedCostume.message,
+      errors: updatedCostume.errors
+    })
+  } else if (updatedCostume.error) {
+    return next({
+      status: updatedCostume.status,
+      message: updatedCostume.message,
+      error: updatedCostume.error
+    })
+  }
+
+  res.status(200).json({ costume: updatedCostume })
 }
 
 deleteById = (req, res, next) => {

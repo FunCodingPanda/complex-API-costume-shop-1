@@ -59,7 +59,7 @@ getById = (id) => {
   if (!costume) {
     response = {
       status: 404,
-      message: `Could not find costume of id ${id}`,
+      message: `Could not find costume of id: ${id}`,
       error: 'Not Found'
     }
   } else {
@@ -69,8 +69,51 @@ getById = (id) => {
   return response
 }
 
-update = () => {
+update = (id, body) => {
+  // parse data from JSON into array
+  const costumeArray = JSON.parse(fs.readFileSync(path.join(__dirname, costumeShop, 'costumes.json'), 'utf-8'))
+  const costume = costumeArray.find(costume => costume.id === id)
+  const error = []
+  let response
 
+  // check if id matches with costume id
+  if (!costume) {
+    response = {
+      status: 404,
+      message: `Could not find costume of id: ${id}`,
+      error: 'Not Found'
+    }
+  } else if (body.name === undefined || body.price === undefined || Number(body.price) < 0.01) {
+    // check for errors when body
+    if (body.name === undefined) error.push('Name is required')
+    if (body.price === undefined) error.push('Price is required')
+    else if (Number(body.price) < 0.01) error.push('Price cannot be less than 1 cent')
+
+    // set errors for return
+    response = {
+      status: 400,
+      message: 'Incorrect information',
+      errors: error
+    }
+  } else {
+    // set updatedCostume key-values
+    const updatedCostume = {
+      id,
+      name: body.name,
+      price: Number(body.price),
+      description: body.description ? body.description : 'None',
+      tag: []
+    }
+    // set reponse to updatedCostume for return
+    response = updatedCostume
+
+    // update costume in array, parse it, and write it back into data
+    const index = costumeArray.indexOf(costume)
+    costumeArray[index] = updatedCostume
+    fs.writeFileSync(path.join(__dirname, costumeShop, 'costumes.json'), JSON.stringify(costumeArray))
+  }
+
+  return response
 }
 
 deleteById = () => {
