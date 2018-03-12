@@ -15,7 +15,20 @@ create = (req, res, next) => {
 }
 
 getAll = (req, res, next) => {
+  const costumes = model.getAll(req.query.limit)
 
+console.log(costumes);
+console.log(costumes.error);
+
+  if (costumes.error) {
+    return next({
+      status: costumes.status,
+      message: costumes.message,
+      error: costumes.error
+    })
+  }
+
+  res.status(200).json({ costumes })
 }
 
 getById = (req, res, next) => {

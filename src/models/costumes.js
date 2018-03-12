@@ -42,8 +42,12 @@ create = (body) => {
   return response
 }
 
-getAll = () => {
+getAll = (limit) => {
+  const costumeArray = JSON.parse(fs.readFileSync(path.join(__dirname, costumeShop, 'costumes.json'), 'utf-8'))
 
+  const displayHowMany = (!limit) ? costumeArray : (limit > costumeArray.length) ? { status: 400, message: `Cannot list costumes of value ${limit}`, error: 'Bad request' } : costumeArray.slice(0, limit)
+
+  return displayHowMany
 }
 
 getById = () => {
