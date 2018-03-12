@@ -11,7 +11,9 @@ if (process.env.NODE_ENV !== 'test') app.use(morgan('dev'))
 app.use(bodyParser.json())
 
 const costumeRoutes = require('./src/routes/costumes')
+const tagRoutes = require('./src/routes/tags')
 app.use('/costumes', costumeRoutes)
+app.use('/tag', tagRoutes)
 
 app.use((err, req, res, next) => {
   const status = err.status || 500
