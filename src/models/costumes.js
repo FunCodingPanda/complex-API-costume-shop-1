@@ -116,8 +116,28 @@ update = (id, body) => {
   return response
 }
 
-deleteById = () => {
+deleteById = (id) => {
+  // parse data from JSON into array
+  const costumeArray = JSON.parse(fs.readFileSync(path.join(__dirname, costumeShop, 'costumes.json'), 'utf-8'))
+  const index = costumeArray.findIndex(costume => costume.id === id)
+  let response
 
+  if (index === -1) {
+    response = {
+      status: 404,
+      message: `Could not find costume of id: ${id}`,
+      error: 'Not Found'
+    }
+  } else {
+    // delete costume from costumeArray
+    costumeArray.splice(index, 1)
+    response = true
+
+    // write back into data after deletion
+    fs.writeFileSync(path.join(__dirname, costumeShop, 'costumes.json'), JSON.stringify(costumeArray))
+  }
+
+  return response
 }
 
 module.exports = { create, getAll, getById, update, deleteById }

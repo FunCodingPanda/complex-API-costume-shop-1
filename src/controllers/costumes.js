@@ -68,7 +68,18 @@ update = (req, res, next) => {
 }
 
 deleteById = (req, res, next) => {
+  const id = req.params.id
+  const deletedCostume = model.deleteById(id)
 
+  if (deletedCostume.error) {
+    return next({
+      status: deletedCostume.status,
+      message: deletedCostume.message,
+      error: deletedCostume.error
+    })
+  }
+
+  res.status(204).json()
 }
 
 module.exports = { create, getAll, getById, update, deleteById }
