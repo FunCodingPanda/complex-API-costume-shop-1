@@ -32,7 +32,18 @@ console.log(costumes.error);
 }
 
 getById = (req, res, next) => {
+  const id = req.params.id
+  const costume = model.getById(id)
 
+  if (costume.error) {
+    return next({
+      status: costume.status,
+      message: costume.message,
+      error: costume.error
+    })
+  }
+
+  res.status(200).json({ costume })
 }
 
 update = (req, res, next) => {

@@ -50,8 +50,23 @@ getAll = (limit) => {
   return displayHowMany
 }
 
-getById = () => {
+getById = (id) => {
+  const costumeArray = JSON.parse(fs.readFileSync(path.join(__dirname, costumeShop, 'costumes.json'), 'utf-8'))
+  let response
 
+  const costume = costumeArray.find(costume => costume.id === id)
+
+  if (!costume) {
+    response = {
+      status: 404,
+      message: `Could not find costume of id ${id}`,
+      error: 'Not Found'
+    }
+  } else {
+    response = costume
+  }
+
+  return response
 }
 
 update = () => {
