@@ -1,7 +1,17 @@
 const model = require('../models/costumes')
 
 create = (req, res, next) => {
+  const costume = model.create(req.body)
 
+  if (costume.errors) {
+    return next({
+      status: costume.status,
+      message: costume.message,
+      errors: costume.errors
+    })
+  }
+
+  res.status(201).json({ costume })
 }
 
 getAll = (req, res, next) => {
