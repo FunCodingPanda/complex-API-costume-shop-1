@@ -11,11 +11,10 @@ if (process.env.NODE_ENV !== 'test') app.use(morgan('dev'))
 app.use(bodyParser.json())
 
 const costumeRoutes = require('./src/routes/costumes')
-const tagRoutes = require('./src/routes/tags')
 app.use('/costumes', costumeRoutes)
-app.use('/tag', tagRoutes)
 
 app.use((err, req, res, next) => {
+  console.error('err.stack = ', err.stack) // Log the stacktrace of any errors that happen
   const status = err.status || 500
   res.status(status).json({ error: err })
 })
